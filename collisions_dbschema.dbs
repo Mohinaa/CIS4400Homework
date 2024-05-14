@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Vehicle_Collisions" id="LogicalDesign-75d" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="Vehicle_Collisions" >
+		<table name="DIM _DATE" prior="Entity" >
+			<column name="CRASH_DATE" type="DATE" jt="91" mandatory="y" />
+			<column name="CRASH_TIME" type="DATE" jt="91" mandatory="y" />
+			<column name="DATE_KEY" type="DATE" jt="91" mandatory="y" />
+			<index name="pk_DIM _DATE" unique="PRIMARY_KEY" >
+				<column name="DATE_KEY" />
+			</index>
+		</table>
+		<table name="DIM_CONTRIBUTING_FACTOR" prior="DIM_CONTRIBUTING FACTOR" >
+			<column name="CONTRIBUTING_FACTOR_VEHICLE_1" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="CONTRIBUTING_FACTOR_VEHICLE_2" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="CONTRIBUTING_FACTOR_VEHICLE_3" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="CONTRIBUTING_FACTOR_VEHICLE_4" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="CONTRIBUTING_FACTOR_VEHICLE_5" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="CONTRIBUTING_FACTOR_KEY" type="VARCHAR" jt="12" mandatory="y" />
+			<index name="pk_DIM_CONTRIBUTING FACTOR" unique="PRIMARY_KEY" >
+				<column name="CONTRIBUTING_FACTOR_KEY" />
+			</index>
+		</table>
+		<table name="DIM_DAMAGES" prior="Entity" >
+			<column name="NUMBER_OF_PERSONS_INJURED" prior="DIM_DAMAGES" type="INT" jt="4" mandatory="y" />
+			<column name="NUMBER_OF_PERSONS_KILLED" type="INT" jt="4" mandatory="y" />
+			<column name="NUMBER_OF_PEDESTRIANS_INJURED" type="INT" jt="4" mandatory="y" />
+			<column name="NUMBER_OF_PEDESTRIANS_KILLED" type="INT" jt="4" mandatory="y" />
+			<column name="NUMBER_OF_CYCLISTS_INJURED" type="INT" jt="4" mandatory="y" />
+			<column name="NUMBER_OF_CYCLISTS_KILLED" type="INT" jt="4" mandatory="y" />
+			<column name="NUMBER_OF_MOTORIST_INJURED" type="INT" jt="4" mandatory="y" />
+			<column name="NUMBER_OF_MOTORISTS_KILLED" type="INT" jt="4" mandatory="y" />
+			<column name="DAMAGES_KEY" type="VARCHAR" jt="12" mandatory="y" />
+			<index name="pk_DIM_DAMAGES" unique="PRIMARY_KEY" >
+				<column name="DAMAGES_KEY" />
+			</index>
+		</table>
+		<table name="DIM_LOCATION" prior="Entity" >
+			<column name="BOROUGH" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="ZIPCODE" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="LOCATION" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="LOCATION_KEY" type="VARCHAR" jt="12" mandatory="y" />
+			<index name="pk_DIM_LOCATION" unique="PRIMARY_KEY" >
+				<column name="LOCATION_KEY" />
+			</index>
+		</table>
+		<table name="FACTS_TABLE" prior="FACTS" >
+			<column name="COLLISION_ID" type="INT" jt="4" mandatory="y" />
+			<column name="FACTS_KEY" prior="LOCATION_KEY" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="LOCATION_KEY" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="DATE_KEY" type="DATE" jt="91" mandatory="y" />
+			<column name="DAMAGES_KEY" type="INT" jt="4" mandatory="y" />
+			<column name="CONTRIBUTING_FACTOR_KEY" type="VARCHAR" jt="12" mandatory="y" />
+			<index name="pk_FACTS_TABLE" unique="PRIMARY_KEY" >
+				<column name="FACTS_KEY" />
+			</index>
+			<fk name="fk_FACTS_TABLE_DIM_LOCATION" to_schema="Vehicle_Collisions.INSTANCE" to_table="DIM_LOCATION" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="LOCATION_KEY" pk="LOCATION_KEY" />
+			</fk>
+			<fk name="fk_FACTS_TABLE_DIM _DATE" to_schema="Vehicle_Collisions.INSTANCE" to_table="DIM _DATE" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="DATE_KEY" pk="DATE_KEY" />
+			</fk>
+			<fk name="fk_FACTS_TABLE_DIM_DAMAGES" to_schema="Vehicle_Collisions.INSTANCE" to_table="DIM_DAMAGES" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="DAMAGES_KEY" pk="DAMAGES_KEY" />
+			</fk>
+			<fk name="fk_FACTS_TABLE_DIM_CONTRIBUTING_FACTOR" to_schema="Vehicle_Collisions.INSTANCE" to_table="DIM_CONTRIBUTING_FACTOR" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="CONTRIBUTING_FACTOR_KEY" pk="CONTRIBUTING_FACTOR_KEY" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-7b7" show_relation="columns" >
+		<entity schema="Vehicle_Collisions.INSTANCE" name="DIM _DATE" color="C1D8EE" x="51" y="408" />
+		<entity schema="Vehicle_Collisions.INSTANCE" name="DIM_CONTRIBUTING_FACTOR" color="C1D8EE" x="986" y="425" />
+		<entity schema="Vehicle_Collisions.INSTANCE" name="DIM_DAMAGES" color="C1D8EE" x="867" y="51" />
+		<entity schema="Vehicle_Collisions.INSTANCE" name="DIM_LOCATION" color="C1D8EE" x="68" y="51" />
+		<entity schema="Vehicle_Collisions.INSTANCE" name="FACTS_TABLE" color="C1D8EE" x="425" y="255" />
+	</layout>
+</project>
