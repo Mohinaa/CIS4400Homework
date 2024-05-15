@@ -1,3 +1,15 @@
+OpenSource: 
+https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data
+
+Coding link: 
+https://data.cityofnewyork.us/api/views/h9gi-nx95/rows.csv?fourfour=h9gi-nx95&cacheBust=1715640490&date=20240514&accessType=DOWNLOAD
+
 Azure link: 
 https://portal.azure.com/#@baruchmail.cuny.edu/resource/subscriptions/fb423006-4418-4770-8fa2-acfdab37e3ec/resourceGroups/Vehicles/providers/Microsoft.DBforPostgreSQL/flexibleServers/cisdw/overview
 cisdw.postgres.database.azure.com
+
+Config JSON
+
+{
+    "connectionString": "DefaultEndpointsProtocol=https;AccountName=cis4400spring2024mohina;AccountKey=IxrJzjP2LoIb4fbZPu5ge2Ao1+ZnGPz+XGukf0sPBs50gcC50LY5RSjgaKky2KcDsPNk5+Y/O/pR+AStvbbwjA==;EndpointSuffix=core.windows.net"
+}
