@@ -1,0 +1,95 @@
+[2024-05-14 20:03:45] Connected
+postgres> CREATE SCHEMA IF NOT EXISTS "collisions"
+[2024-05-14 20:03:45] completed in 45 ms
+postgres.public> CREATE  TABLE "collisions".dim__date (
+                 	crash_date           date  NOT NULL  ,
+                 	crash_time           date  NOT NULL  ,
+                 	date_key             date  NOT NULL  ,
+                 	CONSTRAINT pk_dim__date PRIMARY KEY ( date_key )
+
+postgres.public> CREATE  TABLE "collisions".dim__date (
+                 	crash_date           date  NOT NULL  ,
+                 	crash_time           date  NOT NULL  ,
+                 	date_key             date  NOT NULL  ,
+                 	CONSTRAINT pk_dim__date PRIMARY KEY ( date_key )
+                  )
+[2024-05-14 20:04:22] completed in 71 ms
+postgres.public> CREATE  TABLE "collisions".dim_contributing_factor (
+                 	contributing_factor_vehicle_1 varchar  NOT NULL  ,
+                 	contributing_factor_vehicle_2 varchar  NOT NULL  ,
+                 	contributing_factor_vehicle_3 varchar  NOT NULL  ,
+                 	contributing_factor_vehicle_4 varchar  NOT NULL  ,
+                 	contributing_factor_vehicle_5 varchar  NOT NULL  ,
+                 	contributing_factor_key varchar  NOT NULL  ,
+                 	CONSTRAINT pk_dim_contributing_factor PRIMARY KEY ( contributing_factor_key )
+
+postgres.public> CREATE  TABLE "collisions".dim_contributing_factor (
+                 	contributing_factor_vehicle_1 varchar  NOT NULL  ,
+                 	contributing_factor_vehicle_2 varchar  NOT NULL  ,
+                 	contributing_factor_vehicle_3 varchar  NOT NULL  ,
+                 	contributing_factor_vehicle_4 varchar  NOT NULL  ,
+                 	contributing_factor_vehicle_5 varchar  NOT NULL  ,
+                 	contributing_factor_key varchar  NOT NULL  ,
+                 	CONSTRAINT pk_dim_contributing_factor PRIMARY KEY ( contributing_factor_key )
+                  )
+[2024-05-14 20:04:55] completed in 47 ms
+postgres.public> CREATE  TABLE "collisions".dim_damages (
+                 	number_of_persons_injured integer  NOT NULL  ,
+                 	number_of_persons_killed integer  NOT NULL  ,
+                 	number_of_pedestrians_injured integer  NOT NULL  ,
+                 	number_of_pedestrians_killed integer  NOT NULL  ,
+                 	number_of_cyclists_injured integer  NOT NULL  ,
+                 	number_of_cyclists_killed integer  NOT NULL  ,
+                 	number_of_motorist_injured integer  NOT NULL  ,
+                 	number_of_motorists_killed integer  NOT NULL  ,
+                 	damages_key          varchar  NOT NULL  ,
+                 	CONSTRAINT pk_dim_damages PRIMARY KEY ( damages_key )
+
+postgres.public> CREATE  TABLE "collisions".dim_damages (
+                 	number_of_persons_injured integer  NOT NULL  ,
+                 	number_of_persons_killed integer  NOT NULL  ,
+                 	number_of_pedestrians_injured integer  NOT NULL  ,
+                 	number_of_pedestrians_killed integer  NOT NULL  ,
+                 	number_of_cyclists_injured integer  NOT NULL  ,
+                 	number_of_cyclists_killed integer  NOT NULL  ,
+                 	number_of_motorist_injured integer  NOT NULL  ,
+                 	number_of_motorists_killed integer  NOT NULL  ,
+                 	damages_key          varchar  NOT NULL  ,
+                 	CONSTRAINT pk_dim_damages PRIMARY KEY ( damages_key )
+                  )
+[2024-05-14 20:05:16] completed in 42 ms
+postgres.public> CREATE  TABLE "collisions".dim_location (
+                 	borough              varchar  NOT NULL  ,
+                 	zipcode              varchar  NOT NULL  ,
+                 	location             varchar  NOT NULL  ,
+                 	location_key         varchar  NOT NULL  ,
+                 	CONSTRAINT pk_dim_location PRIMARY KEY ( location_key )
+                  )
+[2024-05-14 20:05:26] completed in 38 ms
+postgres.public> CREATE  TABLE "collisions".facts_table (
+                 	collision_id         integer  NOT NULL  ,
+                 	facts_key            varchar  NOT NULL  ,
+                 	location_key         varchar  NOT NULL  ,
+                 	date_key             date  NOT NULL  ,
+                 	damages_key          integer  NOT NULL  ,
+                 	contributing_factor_key varchar  NOT NULL  ,
+                 	CONSTRAINT pk_facts_table PRIMARY KEY ( facts_key )
+                  )
+[2024-05-14 20:06:20] completed in 44 ms
+postgres.public> ALTER TABLE "collisions".facts_table ADD CONSTRAINT fk_facts_table_dim_location FOREIGN KEY ( location_key ) REFERENCES "collisions".dim_location( location_key )
+[2024-05-14 20:06:20] completed in 32 ms
+postgres.public> ALTER TABLE "collisions".facts_table ADD CONSTRAINT fk_facts_table_dim__date FOREIGN KEY ( date_key ) REFERENCES "collisions".dim__date( date_key )
+[2024-05-14 20:06:20] completed in 32 ms
+postgres.public> ALTER TABLE "collisions".facts_table ADD CONSTRAINT fk_facts_table_dim_damages FOREIGN KEY ( damages_key ) REFERENCES "collisions".dim_damages( damages_key )
+[2024-05-14 20:06:20] [42804] ERROR: foreign key constraint "fk_facts_table_dim_damages" cannot be implemented
+[2024-05-14 20:06:20] Detail: Key columns "damages_key" and "damages_key" are of incompatible types: integer and character varying.
+postgres.public> CREATE  TABLE "collisions".facts_table (
+                 	collision_id         integer  NOT NULL  ,
+                 	facts_key            varchar  NOT NULL  ,
+                 	location_key         varchar  NOT NULL  ,
+                 	date_key             date  NOT NULL  ,
+                 	damages_key          varchar  NOT NULL  ,
+                 	contributing_factor_key varchar  NOT NULL  ,
+                 	CONSTRAINT pk_facts_table PRIMARY KEY ( facts_key )
+                  )
+[2024-04-14 20:25:15] [42P07] ERROR: relation "facts_table" already exists
